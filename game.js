@@ -1,5 +1,14 @@
 let cost = document.querySelector('.labubuCost')
-
+let parsedCost=parseFloat(cost.innerHTML)
+let clickerCost = document.querySelector('.clicker')
+let parsedClickerCost = parseFloat(clickerCost.innerHTML)
 function incrementLabubu(){
-    cost.innerHTML = parseFloat(cost.innerHTML) + 1;
+    parsedCost+=1
+    cost.innerHTML = parsedCost;
+}
+function buyClicker(){
+    if(parsedCost>=parsedClickerCost){
+        parsedCost-=parsedClickerCost
+        cost.innerHTML= parsedCost
+    }
 }
