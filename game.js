@@ -32,23 +32,37 @@ let clicker2Level = parseInt(clicker2LevelDisplay.innerHTML);
 let clicker3Cost = parseInt(clicker3CostDisplay.innerHTML);
 let clicker3Level = parseInt(clicker3LevelDisplay.innerHTML);
 
-function incrementLabubu() {
+let labubuImageCon = document.querySelector('.labubuImage')
+
+
+function incrementLabubu(event) {
     labubuCount += labubuPerClick;
     labubuDisplay.innerHTML = Math.floor(labubuCount);
+
+    const x = event.offsetX;
+    const y = event.offsetY;
+
+    const gbc = labubuPerClick;
+
+    const div = document.createElement('div');
+    div.innerHTML = `+${Math.round(gbc)}`;
+    div.style.cssText = `
+        color: white;
+        position: absolute;
+        top: ${y}px;
+        left: ${x}px;
+        font-size: 15px;
+        pointer-events: none;
+    `;
+    labubuImageCon.appendChild(div);
+
+    div.classList.add('fadeUp');
+    div.addEventListener('animationend', () => {
+        div.remove();
+    });//вот это вся залупа предназначена для анимации единичек , сам не поймешь , спроси у ИИ как это 
 }
 
-function buyClicker() {
-    if (labubuCount >= clickerCost) {
-        labubuCount -= clickerCost;
-        clickerLevel++;
-        labubuPerClick += 1;
-        passiveIncome1 += 0.5;
-        clickerCost = Math.round(clickerCost * 1.15);
-        updateGameTotals();
-    } else {
-        alert("Недостаточно средств!");
-    }
-}
+
 
 function buyClicker2() {
     if (labubuCount >= clicker2Cost) {
