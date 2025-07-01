@@ -11,6 +11,7 @@ body {
   position: relative;
   font-family: 'Quicksand', sans-serif;
   user-select: none;
+  position: relative;
 }
 
 .main {
@@ -56,6 +57,8 @@ body {
   width: 330px;
   position: relative;
   margin-bottom: 20px;
+  position: relative;
+  margin-bottom: 30px;
 
 }
 .upgrade:hover {
@@ -65,4 +68,38 @@ body {
 .upgrade:active{
     opacity:0.7;
     transform: scale(1.05)
+}
+
+.next-level-info {
+  position: absolute;
+  right: -105px;
+  background-color: #362c2c;
+  height: 80px;
+  width: 100px;
+  text-align: center;
+  display: none;
+}
+
+.upgrade:hover .next-level-info {
+  display: block;
+}
+
+.statistics {
+  position: absolute;
+  bottom: 0;
+  width: 450px;
+  padding: 30px;
+  border: 2px white solid;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.texts {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 22px;
 }
