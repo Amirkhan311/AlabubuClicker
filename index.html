@@ -10,23 +10,76 @@
     <section>
         <div class="main">
             <div class="left">
-            <h3><span class="labubuCost">1</span></h3>
+            <h3><span class="labubuCost">15500</span></h3>
             <img id="labubu" src="./images/brown-labubu-character-in-bunny-costume-cute-cartoon-style-figure.png" onclick="incrementLabubu()" draggable="false">
             </div>
             <div class="right">
+
+                
                 <div class="upgrade" onclick="buyClicker()">
                     <div class="leftSection"> 
                         <img src="./images/pngimg.com - cursor_PNG80.png" alt="" class="upgradeimg">
                     </div>
                     <div class="midSection">
                         <h5>Клик+1</h5>
-                        <div>Цена:<span class = "clicker">10</span>$</div>
+                        <div>Цена:<span class = "clicker">10</span>$</div>  
                     </div>
-                    <div class="rightSectiom">
-                        Уровень 0 
+                    <div class="rightSection">
+                        Уровень <span class="clickerLevel">0</span>
+                    </div>
+                    <div class="next-level-info">
+                        <p>
+        пассивный доход: <br /> +<span class="clicker-increase">0.0</span> в сек
+    </p>
+
                     </div>
                 </div>
+
+                
+                <div class="upgrade" onclick="buyClicker2()">
+                    <div class="leftSection"> 
+                        <img src="./images/pngimg.com - diamond_PNG6679.png" alt="" class="upgradeimg">
+                    </div>
+                    <div class="midSection">
+                        <h5>Клик+5</h5>
+                        <div>Цена:<span class = "clicker2">150</span>$</div>  
+                    </div>
+                    <div class="rightSection">
+                        Уровень <span class="clicker2Level">0</span>
+                    </div>
+                    <div class="next-level-info">
+                        <p>
+        пассивный доход: <br /> +<span class="clicker2-increase">0.0</span> в сек
+    </p>
+
+                    </div>
+                </div>
+
+                <div class="upgrade" onclick="buyClicker3()">
+                    <div class="leftSection"> 
+                        <img src="./images/pngimg.com - gold_PNG10964.png" alt="" class="upgradeimg">
+                    </div>
+                    <div class="midSection">
+                        <h5>Клик+10</h5>
+                        <div>Цена:<span class = "clicker3">1500</span>$</div>  
+                    </div>
+                    <div class="rightSection">
+                        Уровень <span class="clicker3Level">0</span>
+                    </div>
+                    <div class="next-level-info">
+                        <p>
+        пассивный доход: <br /> +<span class="clicker3-increase">0.0</span> в сек
+    </p>
             </div>
+        </div>
+
+        <div class="statistics">
+            <div class="texts">
+                <p>Лабубукоин за клик <span id="lbc-text">1</span></p>
+                <p>Лабубукоин за сек <span id="lbs-text">0</span></p>
+
+            </div>
+
         </div>
     </section>
 <script src="game.js"></script>
