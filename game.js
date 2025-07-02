@@ -22,15 +22,78 @@ let passiveIncome1 = 0;
 let passiveIncome2 = 0;
 let passiveIncome3 = 0;
 let labubuPerSecond = 0;
+ 
+const upgrades = [
+    {
+        name: 'clicker1',
+        cost: document.querySelector('.clicker'),
+        parsedCost:parseFloat(document.querySelector('.clicker').innerHTML),
+        increase:document.querySelector('.clicker-increase'),
+        parsedIncrease:parseFloat(document.querySelector('.clicker-increase').innerHTML),
+        level: document.querySelector('.clickerLevel'),
+        pi: 0,//passive income nigga
+        lpc:1,//labubu per click как свойство объекта
+        labubuCostMult: 1.12,
 
-let clickerCost = parseInt(clickerCostDisplay.innerHTML);
-let clickerLevel = parseInt(clickerLevelDisplay.innerHTML);
+    },
+     {
+        name: 'clicker2',
+        cost: document.querySelector('.clicker2'),
+        parsedCost:parseFloat(document.querySelector('.clicker2').innerHTML),
+        increase:document.querySelector('.clicker2-increase'),
+        parsedIncrease:parseFloat(document.querySelector('.clicker2-increase').innerHTML),
+        level: document.querySelector('.clicker2Level'),
+        pi:2.5,
+        lpc:5,
+        labubuCostMult: 1.25,
 
-let clicker2Cost = parseInt(clicker2CostDisplay.innerHTML);
-let clicker2Level = parseInt(clicker2LevelDisplay.innerHTML);
+    },
+     {
+        name: 'clicker3',
+        cost: document.querySelector('.clicker3'),
+        parsedCost:parseFloat(document.querySelector('.clicker3').innerHTML),
+        increase:document.querySelector('.clicker3-increase'),
+        parsedIncrease:parseFloat(document.querySelector('.clicker3-increase').innerHTML),
+        level: document.querySelector('.clicker3Level'),
+        pi:5,
+        lpc:10,
+        labubuCostMult: 1.35,
 
-let clicker3Cost = parseInt(clicker3CostDisplay.innerHTML);
-let clicker3Level = parseInt(clicker3LevelDisplay.innerHTML);
+    }
+]
+function buyUpgrade(upgrade){
+    const mu=upgrades.find((u)=> {  //mu=matchedUpgrade
+        if(u.name===upgrade) return u
+    })
+    
+    if (labubuCount >= mu.parsedCost) {
+    labubuCount -= mu.parsedCost;
+    labubuDisplay.innerHTML = Math.round(labubuCount);
+
+    mu.level.innerHTML++;
+    labubuPerClick += mu.lpc;
+
+    if (mu.name === "clicker1") {
+        passiveIncome1 += mu.pi;
+    } 
+    else if (mu.name === "clicker2") {
+        passiveIncome2 += mu.pi;
+    } 
+    else if (mu.name === "clicker3") {
+        passiveIncome3 += mu.pi;
+    }
+
+    mu.parsedCost *= mu.labubuCostMult;
+    mu.cost.innerHTML = Math.round(mu.parsedCost);
+
+    updateGameTotals();
+}
+     else {
+        alert("Недостаточно средств!");
+    }
+
+    }
+
 
 let labubuImageCon = document.querySelector('.labubuImage')
 
@@ -62,34 +125,6 @@ function incrementLabubu(event) {
     });//вот это вся залупа предназначена для анимации единичек , сам не поймешь , спроси у ИИ как это 
 }
 
-
-
-function buyClicker2() {
-    if (labubuCount >= clicker2Cost) {
-        labubuCount -= clicker2Cost;
-        clicker2Level++;
-        labubuPerClick += 5;
-        passiveIncome2 += 2.5;
-        clicker2Cost = Math.round(clicker2Cost * 1.25);
-        updateGameTotals();
-    } else {
-        alert("Недостаточно средств!");
-    }
-}
-
-function buyClicker3() {
-    if (labubuCount >= clicker3Cost) {
-        labubuCount -= clicker3Cost;
-        clicker3Level++;
-        labubuPerClick += 10;
-        passiveIncome3 += 5;
-        clicker3Cost = Math.round(clicker3Cost * 1.35);
-        updateGameTotals();
-    } else {
-        alert("Недостаточно средств!");
-    }
-}
-
 function updateGameTotals() {
     labubuPerSecond = passiveIncome1 + passiveIncome2 + passiveIncome3;
     updateDisplay();
@@ -98,14 +133,6 @@ function updateGameTotals() {
 function updateDisplay() {
     labubuDisplay.innerHTML = Math.floor(labubuCount);
 
-    clickerCostDisplay.innerHTML = clickerCost;
-    clickerLevelDisplay.innerHTML = clickerLevel;
-
-    clicker2CostDisplay.innerHTML = clicker2Cost;
-    clicker2LevelDisplay.innerHTML = clicker2Level;
-
-    clicker3CostDisplay.innerHTML = clicker3Cost;
-    clicker3LevelDisplay.innerHTML = clicker3Level;
 
     passiveIncomeDisplay1.innerHTML = passiveIncome1.toFixed(1);
     passiveIncomeDisplay2.innerHTML = passiveIncome2.toFixed(1);
