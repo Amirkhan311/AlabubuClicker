@@ -94,6 +94,45 @@ function buyUpgrade(upgrade){
 
     }
 
+    function save(){
+        localStorage.clear()
+        upgrades.map((upgrade) =>{
+
+            const obj = JSON.stringify({
+                parsedLevel: parseFloat(upgrade.level.innerHTML),
+                parsedCost: upgrade.parsedCost,
+            })
+
+            localStorage.setItem(upgrade.name,obj)
+        })
+         localStorage.setItem('lbc', JSON.stringify(labubuPerClick))
+         localStorage.setItem('lbs', JSON.stringify(labubuPerSecond))
+         localStorage.setItem('lbs1', JSON.stringify(passiveIncome1))
+         localStorage.setItem('lbs2', JSON.stringify(passiveIncome2))
+         localStorage.setItem('lbs3', JSON.stringify(passiveIncome3))
+         localStorage.setItem('labubu', JSON.stringify(labubuCount))
+         updateGameTotals()
+
+
+    }
+    function load(){
+          upgrades.map((upgrade) =>{
+                const savedValues = JSON.parse(localStorage.getItem(upgrade.name))
+                upgrade.parsedCost = savedValues.parsedCost
+                upgrade.level.innerHTML = savedValues.parsedLevel
+                upgrade.cost.innerHTML =  upgrade.parsedCost 
+
+
+          })
+          labubuPerClick = JSON.parse(localStorage.getItem('lbc'))
+          labubuPerSecond = JSON.parse(localStorage.getItem('lbs'))
+          passiveIncome1 = JSON.parse(localStorage.getItem('lbs1'))
+          passiveIncome2 = JSON.parse(localStorage.getItem('lbs2'))
+          passiveIncome3 = JSON.parse(localStorage.getItem('lbs3'))
+          labubuCount= JSON.parse(localStorage.getItem('labubu'))
+          updateGameTotals()
+    }
+
 
 let labubuImageCon = document.querySelector('.labubuImage')
 

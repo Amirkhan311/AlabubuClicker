@@ -101,6 +101,25 @@ body {
   transform: translate(-50%);
 }
 
+.utilButtons {
+position: absolute;
+top:15px;
+right:15px;
+display:flex;
+gap:15px;
+}
+.utilButton{
+  padding: 8px 13px;
+  font-size: 16px;
+  font-weight:600;
+  font-family:inherit;
+}
+.utilButton:hover{
+  opacity:0.7;
+  cursor: pointer;
+}
+
+
 .texts {
   display: flex;
   gap: 100px;
