@@ -1,3 +1,6 @@
+
+import { upgrades } from "./constants/upgrades.js";
+
 const labubuDisplay = document.querySelector('.labubuCost');
 
 const clickerCostDisplay = document.querySelector('.clicker');
@@ -23,44 +26,7 @@ let passiveIncome2 = 0;
 let passiveIncome3 = 0;
 let labubuPerSecond = 0;
  
-const upgrades = [
-    {
-        name: 'clicker1',
-        cost: document.querySelector('.clicker'),
-        parsedCost:parseFloat(document.querySelector('.clicker').innerHTML),
-        increase:document.querySelector('.clicker-increase'),
-        parsedIncrease:parseFloat(document.querySelector('.clicker-increase').innerHTML),
-        level: document.querySelector('.clickerLevel'),
-        pi: 0,//passive income nigga
-        lpc:1,//labubu per click как свойство объекта
-        labubuCostMult: 1.12,
 
-    },
-     {
-        name: 'clicker2',
-        cost: document.querySelector('.clicker2'),
-        parsedCost:parseFloat(document.querySelector('.clicker2').innerHTML),
-        increase:document.querySelector('.clicker2-increase'),
-        parsedIncrease:parseFloat(document.querySelector('.clicker2-increase').innerHTML),
-        level: document.querySelector('.clicker2Level'),
-        pi:2.5,
-        lpc:5,
-        labubuCostMult: 1.25,
-
-    },
-     {
-        name: 'clicker3',
-        cost: document.querySelector('.clicker3'),
-        parsedCost:parseFloat(document.querySelector('.clicker3').innerHTML),
-        increase:document.querySelector('.clicker3-increase'),
-        parsedIncrease:parseFloat(document.querySelector('.clicker3-increase').innerHTML),
-        level: document.querySelector('.clicker3Level'),
-        pi:5,
-        lpc:10,
-        labubuCostMult: 1.35,
-
-    }
-]
 function buyUpgrade(upgrade){
     const mu=upgrades.find((u)=> {  //mu=matchedUpgrade
         if(u.name===upgrade) return u
@@ -73,7 +39,7 @@ function buyUpgrade(upgrade){
     mu.level.innerHTML++;
     labubuPerClick += mu.lpc;
 
-    if (mu.name === "clicker1") {
+    if (mu.name === "clicker") {
         passiveIncome1 += mu.pi;
     } 
     else if (mu.name === "clicker2") {
@@ -137,6 +103,9 @@ function buyUpgrade(upgrade){
 let labubuImageCon = document.querySelector('.labubuImage')
 
 
+
+
+
 function incrementLabubu(event) {
     labubuCount += labubuPerClick;
     labubuDisplay.innerHTML = Math.floor(labubuCount);
@@ -153,7 +122,7 @@ function incrementLabubu(event) {
         position: absolute;
         top: ${y}px;
         left: ${x}px;
-        font-size: 15px;
+        font-size: 30px;
         pointer-events: none;
     `;
     labubuImageCon.appendChild(div);
@@ -191,3 +160,8 @@ setInterval(function() {
 }, 1000 / ticksPerSecond);
 
 updateDisplay();
+
+window.incrementLabubu=incrementLabubu;
+window.buyUpgrade = buyUpgrade;
+window.save = save;
+window.load = load;
