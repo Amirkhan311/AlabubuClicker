@@ -25,6 +25,11 @@ let passiveIncome1 = 0;
 let passiveIncome2 = 0;
 let passiveIncome3 = 0;
 let labubuPerSecond = 0;
+
+const bgm = new Audio('/sounds/bgm.mp3')
+bgm.volume = 0.05
+
+
  
 
 function buyUpgrade(upgrade){
@@ -33,6 +38,9 @@ function buyUpgrade(upgrade){
     })
     
     if (labubuCount >= mu.parsedCost) {
+    const upgradeSound = new Audio('/sounds/upgrade.mp3')
+    upgradeSound.play()
+    upgradeSound.volume = 0.1
     labubuCount -= mu.parsedCost;
     labubuDisplay.innerHTML = Math.round(labubuCount);
 
@@ -106,7 +114,10 @@ let labubuImageCon = document.querySelector('.labubuImage')
 
 
 
+
 function incrementLabubu(event) {
+    const clickingSound = new Audio('/sounds/click.wav')
+    clickingSound.play()
     labubuCount += labubuPerClick;
     labubuDisplay.innerHTML = Math.floor(labubuCount);
 
@@ -159,7 +170,24 @@ setInterval(function() {
     }
 }, 1000 / ticksPerSecond);
 
+
 updateDisplay();
+
+let bgmStarted = false;
+
+function startBgmOnce() {
+    if (!bgmStarted) {
+        bgm.loop = true;
+        bgm.play().then(() => {
+            console.log("Фоновая музыка запущена");
+        }).catch((e) => {
+            console.warn("Ошибка запуска звука:", e);
+        });
+        bgmStarted = true;
+    }
+}
+
+document.addEventListener('click', startBgmOnce);
 
 window.incrementLabubu=incrementLabubu;
 window.buyUpgrade = buyUpgrade;
