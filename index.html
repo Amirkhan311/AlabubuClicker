@@ -10,7 +10,6 @@
     <section>
         <div class="multiClickButtons">
             <div class="top-buttons-row">
-                <!-- Текст "2x" заменен на иконку -->
                 <button class="multiClickButton" id="doubleClickButton" onclick="doubleClick()">
                     <img src="./images/2x_icon.png" alt="2x Click">
                     <span class="doubleClickTimer" id="doubleClickDurationTimer"></span>
@@ -23,63 +22,74 @@
                 <img src="./images/shop_icon.png" alt="Shop">
             </button>
         </div>
+
         <div class="main">
             <div class="left">
-            <img id="labubuCoinIcon" src="./images/coin.png" alt="Labubu Coin">
-            <h3><span class="labubuCost pinkText">15500</span></h3>
-            <div class="labubuImage">
-                <img id="labubu" src="./images/labubu1.png" onclick="incrementLabubu(event)" draggable="false">
-            </div>
-            
-            </div>
-           <script id="upgrade-template" type="text/template">
-                      <div class="upgrade" onclick="buyUpgrade('{{name}}')">
-        <div class="leftSection"> 
-            <img src="{{image}}" alt="" class="upgradeimg">
-        </div>
-        <div class="midSection">
-            <h5>{{mainName}}</h5>
-            <div>Цена: <span class="{{name}}">{{cost}}</span>$</div>  
-        </div>
-        <div class="rightSection">
-            Уровень <span class="{{name}}Level">0</span>
-        </div>
-        <div class="next-level-info">
-            <p>пассивный доход: <br /> +<span class="{{name}}-increase">{{increase}}</span> в сек</p>    
-        </div>
-    </div>
-                </script>
-                <div class="right" id="upgrades-container">
-
-
+                <img id="labubuCoinIcon" src="./images/coin.png" alt="Labubu Coin">
+                <h3><span class="labubuCost pinkText">1550000</span></h3>
+                
+                <div class="character-area">
+                    <div class="labubuImage">
+                        <img id="labubu" src="./images/labubu1.png" onclick="incrementLabubu(event)" draggable="false">
+                    </div>
+                    <!-- ИЗМЕНЕНИЯ ЗДЕСЬ: onclick перенесен на контейнер, button заменен на div -->
+                    <div class="evolution-container" id="evolutionContainer" onclick="evolveLabubu()">
+                        <div class="evolution-button">Эволюция</div>
+                        <p>Цена: <span id="evolutionCost">10000</span></p>
+                    </div>
                 </div>
-        <div class="statistics">
-            <div class="texts">
-                <p>Лабубукоин за клик <span id="lbc-text" class="pinkText">1</span></p>
-                <p>Лабубукоин за сек <span id="lbs-text" class="pinkText">0</span></p>
 
+                <div class="statistics">
+                    <div class="texts">
+                        <p>Лабубукоин за клик<span id="lbc-text" class="pinkText">1</span></p>
+                        <p>Лабубукоин за сек<span id="lbs-text" class="pinkText">0.0</span></p>
+                    </div>
+                </div>
             </div>
 
+            <script id="upgrade-template" type="text/template">
+                <div class="upgrade" onclick="buyUpgrade('{{name}}')">
+                    <div class="leftSection"> 
+                        <img src="{{image}}" alt="" class="upgradeimg">
+                    </div>
+                    <div class="midSection">
+                        <h5>{{mainName}}</h5>
+                        <div>Цена: <span class="{{name}}">{{cost}}</span>$</div>  
+                    </div>
+                    <div class="rightSection">
+                        Уровень <span class="{{name}}Level">0</span>
+                    </div>
+                    <div class="next-level-info">
+                        <p>пассивный доход: <br /> +<span class="{{name}}-increase">{{increase}}</span> в сек</p>    
+                    </div>
+                </div>
+            </script>
         </div>
-        <div class="utilButtons">
-            <button class="utilButton" onclick="save()">
-            Save
-            </button>
-            <button class="utilButton" onclick="load()">
-            Load
-            </button>
+
+        <div class="upgrades-panel-container">
+            <div class="utilButtons">
+                <button class="utilButton" onclick="save()">
+                Save
+                </button>
+                <button class="utilButton" onclick="load()">
+                Load
+                </button>
+            </div>
+            <div class="right-container-with-border">
+                <div class="right" id="upgrades-container">
+                    <!-- Апгрейды будут здесь -->
+                </div>
+            </div>
         </div>
     </section>
 <script type="module" src="game.js"></script>
-<!-- Overlay для сообщения о кулдауне -->
+<!-- Overlays -->
 <div id="cooldownMessageOverlay">
     <div id="cooldownMessageBox">
         <p id="cooldownMessageText"></p>
         <button onclick="hideCooldownMessage()">ОК</button>
     </div>
 </div>
-
-<!-- Оверлей магазина -->
 <div id="shopOverlay">
     <div id="shopContainer">
         <div class="shopHeader">
@@ -87,7 +97,6 @@
             <button class="shopCloseButton" onclick="closeShop()">X</button>
         </div>
         <div class="shopItemsContainer" id="shopItemsContainer">
-            <!-- Сюда будут динамически добавляться товары магазина, или пока пустые слоты -->
             <div class="shop-item-slot"></div>
             <div class="shop-item-slot"></div>
             <div class="shop-item-slot"></div>
@@ -98,6 +107,5 @@
         <p class="currentLabubuInShop">Лабубукоинов: <span class="labubuCost pinkText" id="shopLabubuCount">0</span></p>
     </div>
 </div>
-
 </body>
 </html>

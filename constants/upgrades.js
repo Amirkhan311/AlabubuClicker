@@ -1,56 +1,60 @@
-import { defaultValues } from "./defaultValues.js"; 
+// upgrades.js
 
-function createUpgrades() {
-    const upgradesContainer = document.getElementById('upgrades-container');
-    const template = document.getElementById('upgrade-template').textContent;
-
-    defaultValues.forEach((object) => {
-        let html = template;
-
-        Object.keys(object).forEach((key) => {
-            const regex = new RegExp(`{{${key}}}`, 'g');
-            html = html.replace(regex, object[key]);
-        });
-
-        upgradesContainer.innerHTML += html;
-    });
-}
-createUpgrades()
-export const upgrades = [
-    {
-        name: 'clicker',
-        cost: document.querySelector('.clicker'),
-        parsedCost:parseFloat(document.querySelector('.clicker').innerHTML),
-        increase:document.querySelector('.clicker-increase'),
-        parsedIncrease:parseFloat(document.querySelector('.clicker-increase').innerHTML),
-        level: document.querySelector('.clickerLevel'),
-        pi: 0,//passive income nigga
-        lpc:1,//labubu per click как свойство объекта
-        labubuCostMult: 1.12,
-
+// 1. Начальные данные (константы) для всех апгрейдов
+const UPGRADES_DATA = {
+    'clicker': { 
+        mainName:'Кликер1', 
+        image:'./images/cursor.png', 
+        baseCost: 10, 
+        costMultiplier: 1.12, 
+        lpc: 1, 
+        pi: 0 
     },
-     {
-        name: 'clicker2',
-        cost: document.querySelector('.clicker2'),
-        parsedCost:parseFloat(document.querySelector('.clicker2').innerHTML),
-        increase:document.querySelector('.clicker2-increase'),
-        parsedIncrease:parseFloat(document.querySelector('.clicker2-increase').innerHTML),
-        level: document.querySelector('.clicker2Level'),
-        pi:2.5,
-        lpc:5,
-        labubuCostMult: 1.25,
-
+    'clicker2': { 
+        mainName: 'Кликер2', 
+        image:'./images/diamond.png', 
+        baseCost: 150, 
+        costMultiplier: 1.25, 
+        lpc: 5, 
+        pi: 2.5 
     },
-     {
-        name: 'clicker3',
-        cost: document.querySelector('.clicker3'),
-        parsedCost:parseFloat(document.querySelector('.clicker3').innerHTML),
-        increase:document.querySelector('.clicker3-increase'),
-        parsedIncrease:parseFloat(document.querySelector('.clicker3-increase').innerHTML),
-        level: document.querySelector('.clicker3Level'),
-        pi:5,
-        lpc:10,
-        labubuCostMult: 1.35,
-
+    'clicker3': { 
+        mainName:'Кликер3', 
+        image:'./images/gold.png', 
+        baseCost: 1500, 
+        costMultiplier: 1.35, 
+        lpc: 10, 
+        pi: 5.0 
     }
-]
+};
+
+// 2. Ссылки на DOM-элементы, которыми управляет этот модуль
+const dom = {
+    container: document.getElementById('upgrades-container'),
+    template: document.getElementById('upgrade-template')
+};
+
+// --- ПУБЛИЧНЫЕ ФУНКЦИИ ---
+
+// Создает HTML-элементы для апгрейдов
+export function createUpgradeElements() {
+    if (!dom.template) return; // Защита, если шаблон не найден
+    const templateContent = dom.template.textContent;
+    let allUpgradesHTML = '';
+
+    for (const key in UPGRADES_DATA) {
+        const upgrade = UPGRADES_DATA[key];
+        let html = templateContent
+            .replace(/{{mainName}}/g, upgrade.mainName)
+            .replace(/{{image}}/g, upgrade.image)
+            .replace(/{{name}}/g, key) // заменяем {{name}} на 'clicker', 'clicker2' и т.д.
+            .replace(/{{cost}}/g, upgrade.baseCost);
+        allUpgradesHTML += html;
+    }
+    dom.container.innerHTML = allUpgradesHTML;
+}
+
+// Возвращает начальные данные апгрейда
+export function getUpgradeData(name) {
+    return UPGRADES_DATA[name];
+}
